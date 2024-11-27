@@ -1,0 +1,47 @@
+const todoForm = document.getElementById('todo-form');
+const todoInput = document.getElementById('todo-input');
+const todoList = document.getElementById('todo-list');
+
+// Add event listener to the form
+todoForm.addEventListener('submit', (e) => {
+    e.preventDefault(); // Prevent form submission
+
+    // Get the input value
+    const taskText = todoInput.value.trim();
+
+    // If input is not empty, create a new task
+    if (taskText !== "") {
+        addTask(taskText);
+        todoInput.value = ""; // Clear input field
+    }
+});
+
+// Function to add a new task
+function addTask(taskText) {
+    // Create list item
+    const li = document.createElement('li');
+
+    // Create text node for the task
+    li.textContent = taskText;
+
+    // Add click event to toggle completion
+    li.addEventListener('click', () => {
+        li.classList.toggle('completed');
+    });
+
+    // Create delete button
+    const deleteBtn = document.createElement('button');
+    deleteBtn.textContent = "Delete";
+    deleteBtn.classList.add('delete-btn');
+
+    // Add event listener to delete button
+    deleteBtn.addEventListener('click', () => {
+        todoList.removeChild(li);
+    });
+
+    // Append delete button to the list item
+    li.appendChild(deleteBtn);
+
+    // Append the list item to the to-do list
+    todoList.appendChild(li);
+}
